@@ -1,5 +1,5 @@
 import {initializeApp} from "firebase/app"
-import {getAuth, signInWithPhoneNumber, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, signInWithPhoneNumber, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import {getFirestore, getDoc, setDoc, doc} from 'firebase/firestore'
 const firebaseConfig = {
     apiKey: "AIzaSyBlsle037JaJlOlww4hNosQTOFK1gqhedo",
@@ -28,7 +28,7 @@ const firebaseConfig = {
 
   export const db = getFirestore() // for fire database usage
 
-  export async function createUserDocumentFromAuth(userAuth){
+  export async function createUserDocumentFromAuth(userAuth, additionalInformation){
     const userDocRef = await doc(db,'users',userAuth.uid) //get the information of user if exists from database
     
     const userSnapshot = await getDoc(userDocRef) //get the data of user
@@ -36,12 +36,13 @@ const firebaseConfig = {
     if(!userSnapshot.exists()){ //checks if user doesn't exists
         const {displayName, email} = userAuth;
         const createdAt = new Date();
-
+        
         try{
             await setDoc(userDocRef, {//creates the instance of user in db if user doesn't exists
                 displayName,
                 email,
-                createdAt
+                createdAt,
+                ...additionalInformation,
             })
         }catch(error){ //catches error if any occurs during creating user data  
             console.log("error creating user",error.message)
@@ -55,4 +56,10 @@ const firebaseConfig = {
     if(!email || !password) return;
     return await createUserWithEmailAndPassword(auth, email, password)
 
+  }
+
+
+  export async function signInUserWithEmailAndPassword(email, password){
+    if(!email || !password) return;
+    return await signInWithEmailAndPassword(auth,email,password)
   }
