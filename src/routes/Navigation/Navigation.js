@@ -17,7 +17,7 @@ export default function Navigation(){
 
 
   const {user} = React.useContext(userContext)
-  console.log(user)
+
   async function signOutHandler(){
     await signOutUser()
   }
