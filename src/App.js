@@ -2,14 +2,7 @@ import Home from './routes/home/home'
 import {Routes, Route} from 'react-router-dom'
 import Navigation from './routes/Navigation/Navigation';
 import SignIn from './routes/signIn/SignIn';
-
-function Shop(){
-  return(
-    <div>
-      <h3>I'm Shop Route.</h3>
-    </div>
-  )
-}
+import Shop from './routes/shop/shop.component';
 
 function App() {
   
