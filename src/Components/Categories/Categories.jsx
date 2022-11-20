@@ -1,4 +1,4 @@
-import CategoryItem from "../Category-item/Category-item"
+import CategoryItem from "../Directory-item/Directory-item"
 import "./Categories.scss"
 export default function Categories(){
     const  categories = [
