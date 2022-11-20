@@ -1,5 +1,5 @@
 import {initializeApp} from "firebase/app"
-import {getAuth, signInWithPhoneNumber, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, signInWithPhoneNumber, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged} from 'firebase/auth'
 import {getFirestore, getDoc, setDoc, doc} from 'firebase/firestore'
 const firebaseConfig = {
     apiKey: "AIzaSyBlsle037JaJlOlww4hNosQTOFK1gqhedo",
@@ -62,4 +62,14 @@ const firebaseConfig = {
   export async function signInUserWithEmailAndPassword(email, password){
     if(!email || !password) return;
     return await signInWithEmailAndPassword(auth,email,password)
+  }
+
+
+  export async function signOutUser() {
+    await signOut(auth)
+  }
+
+
+  export function onAuthStateChangeListener(callback){
+    return onAuthStateChanged(auth,callback)
   }

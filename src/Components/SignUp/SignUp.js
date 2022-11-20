@@ -1,6 +1,8 @@
 import { getDoc } from "firebase/firestore"
 import React from "react"
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase"
+
+
 export default function SignUpForm(){
 
     const [formData, setFormData] = React.useState({
@@ -19,7 +21,7 @@ export default function SignUpForm(){
             }
         })
     }
-
+    
 
     async function handleSubmit(event){
         event.preventDefault();
@@ -30,7 +32,8 @@ export default function SignUpForm(){
 
         try{
             const {user} =await createAuthUserWithEmailAndPassword(email,password)
-            const userRef =await createUserDocumentFromAuth(user,{displayName})
+            
+            await createUserDocumentFromAuth(user,{displayName})
             setFormData({
                 displayName:'',
                 email:'',

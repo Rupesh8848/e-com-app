@@ -5,9 +5,13 @@ import React from "react";
 
 
 export default function SignIn(){
+
+    
+
     const signIn = () =>{
         const logGoogleUser = async() => {
             const {user} = await signInWithGooglePopUp();
+            
             const userDocRef = await createUserDocumentFromAuth(user)
         }
         logGoogleUser()
@@ -29,8 +33,7 @@ export default function SignIn(){
         event.preventDefault()
 
         try {
-            const {user} = await signInUserWithEmailAndPassword(email, password)
-            
+            await signInUserWithEmailAndPassword(email, password)            
         } catch (error) {
             console.log("Error",error)
         }
